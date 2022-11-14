@@ -10,6 +10,10 @@ export class TasksService {
   getAllTask(): Task[] {
     return this.tasks;
   }
+  getAllTaskWithFilers(): Task[] {
+    // cosnt 
+    return this.tasks;
+  }
 
   createTasks(createTasksDTO: createTasksDTO): Task {
     const { title, description } = createTasksDTO;

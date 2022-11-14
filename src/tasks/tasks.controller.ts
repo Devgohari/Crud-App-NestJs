@@ -1,5 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { createTasksDTO } from './dto/create-task-dto';
+import { GetFilterTaskDTO } from './dto/get-tasks-filter-dto';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
@@ -8,8 +18,15 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  getAllTasks(): Task[] {
-    return this.tasksService.getAllTask();
+  getTasks(@Query() filerDTO: GetFilterTaskDTO): Task[] {
+    if (Object.keys(filerDTO).length){
+        // here we have to implement search function 
+        // start with 03 - Validation and Error Handling
+        return this.tasksService.getAllTask();
+    }
+    else{
+        return this.tasksService.getAllTask();
+    }
   }
   @Post()
   createTaks(@Body() createTasksDTO: createTasksDTO) {
@@ -29,4 +46,3 @@ export class TasksController {
     return this.tasksService.updateTaskById(id, status);
   }
 }
-
